@@ -1,15 +1,20 @@
 import express from "express";
+import conectarAoBanco from "./src/config/bdConfig.js";
 
+await conectarAoBanco(process.env.STRING_CONEXAO_BD);
 const posts = [
     { id: 1, descricao: "Uma foto teste", imagem: "https://placecats.com/millie/300/150" },
     { id: 2, descricao: "Gato fazendo yoga", imagem: "https://placecats.com/millie/300/150" },
     { id: 3, descricao: "Gato fazendo panqueca", imagem: "https://placecats.com/millie/300/150"},
 ];
 
+console.log(process.env.STRING_CONEXAO_BD);
+
 const app = express();
 app.use(express.json());
 
-app.listen(3000, () => {
+const PORT = 10;
+app.listen(PORT, () => {
     console.log("Servidor escutando...");
 });
 
