@@ -1,6 +1,7 @@
 import express from "express";
 import conectarAoBanco from "./src/config/bdConfig.js";
 
+console.log("url db: ", process.env.STRING_CONEXAO_BD)
 await conectarAoBanco(process.env.STRING_CONEXAO_BD);
 const posts = [
     { id: 1, descricao: "Uma foto teste", imagem: "https://placecats.com/millie/300/150" },
@@ -13,7 +14,7 @@ console.log(process.env.STRING_CONEXAO_BD);
 const app = express();
 app.use(express.json());
 
-const PORT = 10;
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log("Servidor escutando...");
 });
