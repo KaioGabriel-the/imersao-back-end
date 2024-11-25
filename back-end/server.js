@@ -1,35 +1,25 @@
+// Importa o framework Express, que será usado para criar o servidor e gerenciar rotas.
 import express from "express";
-import conectarAoBanco from "./src/config/bdConfig.js";
+import routes from "./src/routes/postsRoutes.js";
 
-console.log("url db: ", process.env.STRING_CONEXAO_BD)
-await conectarAoBanco(process.env.STRING_CONEXAO_BD);
-const posts = [
-    { id: 1, descricao: "Uma foto teste", imagem: "https://placecats.com/millie/300/150" },
-    { id: 2, descricao: "Gato fazendo yoga", imagem: "https://placecats.com/millie/300/150" },
-    { id: 3, descricao: "Gato fazendo panqueca", imagem: "https://placecats.com/millie/300/150"},
-];
-
-console.log(process.env.STRING_CONEXAO_BD);
-
+// Cria uma instância do Express para configurar o servidor.
 const app = express();
-app.use(express.json());
-
+routes(app);
+// Define a porta onde o servidor vai escutar as requisições (porta 3000).
 const PORT = 3000;
+
+// Inicia o servidor e faz ele escutar na porta 3000. Quando o servidor estiver pronto, ele imprime a mensagem no console.
 app.listen(PORT, () => {
     console.log("Servidor escutando...");
 });
 
-app.get("/posts", (req, res) => {
-    res.status(200).json(posts);
-});
-
-function buscarPostPorID(id) {
-    return posts.findIndex((post) => {
-        return post.id === Number(id)
-    })
+// Função assíncrona que busca todos os posts no banco de dados.
+// Ela acessa a base de dados "imersao-back-end" e a coleção "posts", retornando todos os documentos dessa coleção.
+async function getTodosPosts() {
+    // Acessa a base de dados "imersao-back-end" a partir da conexão MongoDB.
+    const db = conexao.db("imersao-back-end");
+    // Acessa a coleção "posts" dentro da base de dados.
+    const colecao = db.collection("posts");
+    // Retorna todos os documentos da coleção "posts" como um array.
+    return colecao.find().toArray();
 }
-
-app.get("/post/:id", (req, res) => {
-    const index = buscarPostPorID(req.params.id)
-    res.status(200).json(posts[index]);
-});
