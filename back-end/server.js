@@ -4,6 +4,7 @@ import routes from "./src/routes/postsRoutes.js";
 
 // Cria uma instância do Express para configurar o servidor.
 const app = express();
+app.use(express.static("uploads"));
 routes(app);
 // Define a porta onde o servidor vai escutar as requisições (porta 3000).
 const PORT = 3000;

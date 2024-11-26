@@ -1,4 +1,6 @@
 // Importa a função responsável por conectar ao banco de dados MongoDB.
+import 'dotenv/config';
+import { ObjectId } from "mongodb";
 import conectarAoBanco from "../config/bdConfig.js";
 
 // Realiza a conexão com o banco de dados usando a string de conexão armazenada em uma variável de ambiente.
@@ -31,4 +33,18 @@ export async function criarPost(novoPost){
     // Insere um novo post na coleção "posts".
     // 'colecao.insertOne()' insere um único documento (representado por 'novoPost') na coleção.
     return colecao.insertOne(novoPost);
+}
+
+// Função assíncrona que cria um novo post na coleção "posts".
+export async function atualizarPost(id,post){
+    // Acessa novamente o banco de dados "imersao-back-end".
+    const db = conexao.db("imersao-back-end");
+    
+    // Acessa a coleção "posts" dentro do banco de dados.
+    const colecao = db.collection("posts");
+
+    // Insere um novo post na coleção "posts".
+    // 'colecao.insertOne()' insere um único documento (representado por 'novoPost') na coleção.
+    const objId = ObjectId.createFromHexString(id);
+    return colecao.updateOne({_id:new ObjectId(objId)},{$set:post});
 }
