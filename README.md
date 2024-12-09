@@ -8,3 +8,4 @@ Este é um projeto simples que foi desenvolvido durante a imersão back-end da A
 > * **Exibição de resultados:** Os resultados são exibidos na tela dos usuários, mostrando as codições climáticas das cidades.
 > ## 💡 Tecnologias utilizadas
 > * **Express (Node.js):** Utilizado para construir o servidor localmente.
+> * **MongoDB:**
